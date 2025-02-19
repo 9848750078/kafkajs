@@ -1,0 +1,127 @@
+Hi Sai: Please test this. Once I confirm this work as expected i will add to confluence.
+A Python script that uses the Snowflake Connector to retrieve the masking policies associated with table columns in Snowflake:
+import snowflake.connector
+
+def get_masking_policies(account, user, password, database, schema, table):
+    # Establish a connection to Snowflake
+    conn = snowflake.connector.connect(
+        account=account,
+        user=user,
+        password=password,
+        database=database,
+        schema=schema
+    )
+
+    try:
+        # Create a cursor object
+        cursor = conn.cursor()
+
+        # Query to get masking policies associated with table columns
+        query = f"""
+        SELECT column_name, masking_policy
+        FROM information_schema.columns
+        WHERE table_name = '{table}'
+        AND table_schema = '{schema}'
+        AND table_catalog = '{database}'
+        AND masking_policy IS NOT NULL;
+        """
+
+        # Execute the query
+        cursor.execute(query)
+
+        # Fetch the results
+        results = cursor.fetchall()
+
+        # Print the results
+        for row in results:
+            print(f"Column: {row[0]}, Masking Policy: {row[1]}")
+
+    except Exception as e:
+        print("Error fetching masking policies:", e)
+
+    finally:
+        # Close the cursor and connection
+        cursor.close()
+        conn.close()
+
+# Example usage
+account = 'your_account'
+user = 'your_user'
+password = 'your_password'
+database = 'your_database'
+schema = 'your_schema'
+table = 'your_table'
+
+get_masking_policies(account, user, password, database, schema, table)
+
+
+
+
+https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/lakeformation/client/update_lf_tag.html#
+
+
+
+A Python script that uses Boto3 to update an LF-tag in AWS Lake Formation:
+import boto3
+
+def update_lf_tag(tag_key, tag_values, catalog_id=None):
+    # Initialize a session using Amazon Lake Formation
+    client = boto3.client('lakeformation')
+
+    # Prepare the request parameters
+    params = {
+        'TagKey': tag_key,
+        'TagValuesToAdd': tag_values
+    }
+    if catalog_id:
+        params['CatalogId'] = catalog_id
+
+    try:
+        # Update the LF-tag
+        response = client.update_lf_tag(**params)
+        print("LF-tag updated successfully:", response)
+    except Exception as e:
+        print("Error updating LF-tag:", e)
+
+# Example usage
+tag_key = 'example-tag'
+tag_values = ['value1', 'value2']
+catalog_id = '123456789012'  # Optional, specify your catalog ID if needed
+
+update_lf_tag(tag_key, tag_values, catalog_id)
+
+
+----------------------------------------------------------------------------------------------------------------------------
+
+https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/lakeformation/client/update_lf_tag.html#
+
+A Python script that uses Boto3 to update an LF-tag in AWS Lake Formation:
+import boto3
+
+def update_lf_tag(tag_key, tag_values, catalog_id=None):
+    # Initialize a session using Amazon Lake Formation
+    client = boto3.client('lakeformation')
+
+    # Prepare the request parameters
+    params = {
+        'TagKey': tag_key,
+        'TagValuesToAdd': tag_values
+    }
+    if catalog_id:
+        params['CatalogId'] = catalog_id
+
+    try:
+        # Update the LF-tag
+        response = client.update_lf_tag(**params)
+        print("LF-tag updated successfully:", response)
+    except Exception as e:
+        print("Error updating LF-tag:", e)
+
+# Example usage
+tag_key = 'example-tag'
+tag_values = ['value1', 'value2']
+catalog_id = '123456789012'  # Optional, specify your catalog ID if needed
+
+update_lf_tag(tag_key, tag_values, catalog_id)
+This script initializes a Boto3 client for Lake Formation, prepares the parameters for the update_lf_tag method, and updates the LF-tag with the specified key and values. You can customize the tag_key, tag_values, and catalog_id as needed.
+Let me know if you need any further assistance or modifications!
