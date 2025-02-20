@@ -125,3 +125,15 @@ catalog_id = '123456789012'  # Optional, specify your catalog ID if needed
 update_lf_tag(tag_key, tag_values, catalog_id)
 This script initializes a Boto3 client for Lake Formation, prepares the parameters for the update_lf_tag method, and updates the LF-tag with the specified key and values. You can customize the tag_key, tag_values, and catalog_id as needed.
 Let me know if you need any further assistance or modifications!
+
+john message:in service now there is a number of roles sf_rg_col_spii and npii. each role appears to be setup to address a diffrent masking strategy related to certain column types. i think that is not needed in LF setup, as we are not masking. byt rather filtering .therefore, is it reasonable to have just 3 roles: 1) LF_SPII 2) LF_NPII 3) LF_GENERAL? am i right in thinking this all that is needed since we are filtering in DL and not masking (or am i missing a details)?
+
+sukalya reply: i am just thinking out loud here.. lets say user can see drivers lincense but not address.. and what if both are classified as NPII.. how will that work?
+
+john reply to sukalya on above message:
+so please confirm, but i was assuming that for the most part SPII is SPII. your role allows access to it or not. i was assuming that the reason for the number of roles of roles was to address different masking strategies. if there is a need to be granular within SPII(or NPII), then i think we may be able to address the fine grained details with polices. let me confirm my thinking and how to showcase it, but i think this could be more efficient and maintainable.
+
+sukalya reply on above message: i'll have to check with jeff on this and get back to you.
+
+
+
