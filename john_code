@@ -138,5 +138,10 @@ sukalya reply on above message: i'll have to check with jeff on this and get bac
 
 Mean while I will do create role pii and nii roles and as per masking policy which columns I identify those things I will differentiate separate and add to roles the accordingly
 
-
-
+Created roles with role names
+Differentiated columns as sensitive and non-sensitive as per Snowflake masking policies
+Assigned roles accordingly based on sensitive and non-sensitive columns
+Applied LF tags to all tables
+Created the Lambda function for updating LF-Tags.
+Currently checking the connection to ensure Lambda can access Glue Catalog and Lake Formation.
+Need to test the Lambda function to verify if it correctly updates the sensitivity classifications.
